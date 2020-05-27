@@ -77,7 +77,7 @@ public class OauthUsuarioController {
 	/***************************************************/
 	
 	
-	@ApiOperation(value = "Buscar Tipo de Moneda", response = Usuario.class)
+	@ApiOperation(value = "Buscar Usuario Oauth", response = Usuario.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 422, message = "Error al procesar los datos", response = RagnaxError.class),
 			@ApiResponse(code = 503, message = "Error con el servicio", response = RagnaxError.class),
