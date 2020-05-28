@@ -6,8 +6,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ragnax.domain.oauthusuario.entidad.Usuario;
@@ -35,7 +35,7 @@ import org.springframework.http.MediaType;
 //(value = { "${servicio.app.controller}" })
 public class OauthUsuarioController {
 	
-//	private static final Logger LOGGER = LoggerFactory.getLogger(OauthUsuarioController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OauthUsuarioController.class);
 	
 	/****@GetMapping  no soporta Errors****/
 	@Autowired
@@ -73,9 +73,8 @@ public class OauthUsuarioController {
 		return new ResponseEntity<>(idprueba, HttpStatus.OK);
 	}
 	/***************************************************/
-	/*************** Usuario ***************/
+	/*************** Usuario ***************************/
 	/***************************************************/
-	
 	
 	@ApiOperation(value = "Buscar Usuario Oauth", response = Usuario.class)
 	@ApiResponses(value = {
@@ -85,9 +84,24 @@ public class OauthUsuarioController {
 	})
 	@PostMapping(value = "${servicio.app.uri.buscarUsuario}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Usuario>  buscarUsuario(@ApiParam(value = "objeto de entrada", required = true, defaultValue = "0") 
-		@RequestBody @Valid  Usuario usuario, @ApiIgnore Errors errors)  throws LogicaImplException{
+		@RequestBody @Valid  Usuario usuario, @ApiIgnore Errors errors) throws LogicaImplException {//{throws Exception  
 
 		return new ResponseEntity<>(oauthService.buscarUsuario(usuario), HttpStatus.OK);
+
+	}
+	
+	@ApiOperation(value = "Actualizar Usuario Oauth", response = Usuario.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 422, message = "Error al procesar los datos", response = RagnaxError.class),
+			@ApiResponse(code = 503, message = "Error con el servicio", response = RagnaxError.class),
+			@ApiResponse(code = 200, message = "Servicio ejecutado satisfactoriamente", response = Usuario.class)
+	})
+	@PostMapping(value = "${servicio.app.uri.actualizarUsuario}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario>  actualizarUsuario(
+	@ApiParam(value = "objeto de entrada", required = true, defaultValue = "0") @RequestBody @Valid  Usuario usuario, 
+	@ApiIgnore Errors errors) throws LogicaImplException {//{throws Exception  
+		LOGGER.info("actualizarUsuario: "+usuario.getUsername());
+		return new ResponseEntity<>(oauthService.actualizarUsuario(usuario.getId(), usuario), HttpStatus.OK);
 
 	}
 	
