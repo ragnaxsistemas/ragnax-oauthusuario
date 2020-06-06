@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ragnax.domain.oauthusuario.entidad.SSOSeguridadSessionPlataforma;
 import com.ragnax.domain.oauthusuario.entidad.Usuario;
 import com.ragnax.domain.response.error.RagnaxError;
+import com.ragnax.domain.sso.entidad.SSOAccionPerfil;
 import com.ragnax.ragnaxoauthusuario.exception.LogicaImplException;
 import com.ragnax.ragnaxoauthusuario.servicio.OauthService;
 
@@ -39,7 +41,7 @@ public class OauthUsuarioController {
 	
 	/****@GetMapping  no soporta Errors****/
 	@Autowired
-	OauthService oauthService;
+	private OauthService oauthService;
 	
 	/*****
 	##Swagger
@@ -105,5 +107,35 @@ public class OauthUsuarioController {
 
 	}
 	
+	/*******************************************************************************/
+	/*******************************************************************************/
+	/*******************************************************************************/
+	@ApiOperation(value = "crearSeguridadSessionPlataforma", response = SSOAccionPerfil.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 422, message = "Error al procesar los datos", response = RagnaxError.class),
+			@ApiResponse(code = 503, message = "Error con el servicio", response = RagnaxError.class),
+			@ApiResponse(code = 200, message = "Servicio ejecutado satisfactoriamente", response = SSOAccionPerfil.class)
+	})
+	@PostMapping(value = "${servicio.app.uri.crearSeguridadSessionPlataforma}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SSOSeguridadSessionPlataforma>  crearSeguridadSessionPlataforma(  @ApiParam(value = "objeto de entrada", required = true) 
+		@RequestBody @Valid SSOSeguridadSessionPlataforma objSeguridadSessionPlataforma, @ApiIgnore Errors errors
+	)  throws LogicaImplException{
+
+		return new ResponseEntity<>(oauthService.crearSeguridadSessionPlataforma(objSeguridadSessionPlataforma), HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "buscarxKeySeguridadSessionPlataforma", response = SSOAccionPerfil.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 422, message = "Error al procesar los datos", response = RagnaxError.class),
+			@ApiResponse(code = 503, message = "Error con el servicio", response = RagnaxError.class),
+			@ApiResponse(code = 200, message = "Servicio ejecutado satisfactoriamente", response = SSOAccionPerfil.class)
+	})
+	@PostMapping(value = "${servicio.app.uri.buscarxKeySeguridadSessionPlataforma}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<SSOSeguridadSessionPlataforma>  buscarRolxKeySeguridadSessionPlataforma(  @ApiParam(value = "objeto de entrada", required = true) 
+		@RequestBody @Valid SSOSeguridadSessionPlataforma objSeguridadSessionPlataforma, @ApiIgnore Errors errors
+	)  throws LogicaImplException{
+
+		return new ResponseEntity<>(oauthService.buscarxKeySeguridadSessionPlataforma(objSeguridadSessionPlataforma), HttpStatus.OK);
+	}
 	
 }
