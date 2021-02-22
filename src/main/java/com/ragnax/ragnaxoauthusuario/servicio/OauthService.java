@@ -1,7 +1,7 @@
 package com.ragnax.ragnaxoauthusuario.servicio;
 
-import com.ragnax.domain.oauthusuario.entidad.SSOSeguridadSessionPlataforma;
-import com.ragnax.domain.oauthusuario.entidad.Usuario;
+import com.ragnax.domain.sso.entidad.Usuario;
+import com.ragnax.domain.ssosession.entidad.SSOSeguridadSessionPlataforma;
 import com.ragnax.ragnaxoauthusuario.exception.LogicaImplException;
 
 public interface OauthService {

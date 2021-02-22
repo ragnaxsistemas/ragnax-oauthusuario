@@ -19,13 +19,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.ragnax.domain.sso.entidad.Usuario;
+import com.ragnax.domain.ssosession.entidad.SSOSeguridadSessionPlataforma;
 import com.ragnax.ragnaxoauthusuario.configuration.FactoryApiProperties;
 import com.ragnax.ragnaxoauthusuario.exception.LogicaImplException;
-import com.ragnax.domain.oauthusuario.entidad.SSOSeguridadSessionPlataforma;
-import com.ragnax.domain.oauthusuario.entidad.Usuario;
-import com.ragnax.domain.zapala.modelo.ZapalaRequest;
 import com.ragnax.ragnaxoauthusuario.repository.FactoryOauthDAO;
-import com.ragnax.ragnaxoauthusuario.servicio.cliente.ZapalaCliente;
+import com.ragnax.ragnaxutilidades.servicio.ZapalonImpl;
+import com.ragnax.ragnaxutilidades.zapala.modelo.ZapalaRequest;
 
 @Service
 @CacheConfig(cacheNames = { "buscarUsuario"})
@@ -38,7 +38,7 @@ public class OauthServiceImpl implements OauthService {
 	private FactoryOauthDAO factoryOauthDAO;
 	
 	@Autowired
-	private ZapalaCliente zapalaCliente;
+	private ZapalonImpl zapalonImpl;
 	
 	@Autowired
 	private FactoryApiProperties factoryApiProperties;
@@ -117,9 +117,9 @@ public class OauthServiceImpl implements OauthService {
     public SSOSeguridadSessionPlataforma crearSeguridadSessionPlataforma(SSOSeguridadSessionPlataforma seguridadSessionPlataforma ) throws LogicaImplException{
     	// TODO Auto-generated method stub
 
-    	Timestamp tsCreacion = zapalaCliente.dateUtilToTimestamp(new ZapalaRequest(new Date())).getTiempoStamp();
+    	Timestamp tsCreacion = zapalonImpl.DateUtilToTimestamp(new ZapalaRequest(new Date())).getTiempoStamp();
 		
-    	Timestamp tsExpiracion = zapalaCliente.agregarMinutos(new ZapalaRequest(new Date(), 10)).getTiempoStamp();
+    	Timestamp tsExpiracion = zapalonImpl.agregarMinutos(new ZapalaRequest(new Date(), 10)).getTiempoStamp();
 
     	Integer idSeguridadSessionPlataforma = 0;
     	try {

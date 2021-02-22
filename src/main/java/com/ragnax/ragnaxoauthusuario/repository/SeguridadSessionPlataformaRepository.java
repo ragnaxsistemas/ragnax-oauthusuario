@@ -8,7 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.ragnax.domain.oauthusuario.entidad.SSOSeguridadSessionPlataforma;
+import com.ragnax.domain.ssosession.entidad.SSOSeguridadSessionPlataforma;
+
 
 public interface SeguridadSessionPlataformaRepository extends JpaRepository<SSOSeguridadSessionPlataforma, Integer> {
 	

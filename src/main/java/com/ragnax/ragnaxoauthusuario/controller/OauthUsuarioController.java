@@ -6,14 +6,13 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ragnax.domain.oauthusuario.entidad.SSOSeguridadSessionPlataforma;
-import com.ragnax.domain.oauthusuario.entidad.Usuario;
 import com.ragnax.domain.response.error.RagnaxError;
-import com.ragnax.domain.sso.entidad.SSOAccionPerfil;
+import com.ragnax.domain.sso.entidad.Usuario;
+import com.ragnax.domain.ssoaccionperfil.entidad.SSOAccionPerfil;
+import com.ragnax.domain.ssosession.entidad.SSOSeguridadSessionPlataforma;
 import com.ragnax.ragnaxoauthusuario.exception.LogicaImplException;
 import com.ragnax.ragnaxoauthusuario.servicio.OauthService;
 
